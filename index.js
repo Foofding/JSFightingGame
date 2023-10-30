@@ -13,12 +13,13 @@ class Sprite {
         this.position = position;
         this.velocity = velocity;
         this.height = 150;
+        this.width = 50;
         this.lastKey = 's';
     }
 
     draw() {
         c.fillStyle = 'red';
-        c.fillRect(this.position.x, this.position.y, 50, this.height);
+        c.fillRect(this.position.x, this.position.y, this.width, this.height);
     }
 
     update() {
@@ -35,7 +36,7 @@ class Sprite {
         }
         
         // X Axis 
-        if (this.position.x + this.width + this.velocity.x >= canvas.width) {
+        if (this.position.x + this.width + this.velocity.x >= canvas.width || this.position.x + this.velocity.x <= 0) {
             this.velocity.x = 0;
             console.log('boundry hit');
         }
@@ -97,7 +98,7 @@ function animate() {
     
     c.fillStyle = 'black';
     c.fillRect(0, 0, canvas.width, canvas.height)
-    
+
     playerOne.update();
     playerTwo.update();
 
