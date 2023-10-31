@@ -26,6 +26,7 @@ class Sprite {
         }
         this.color = color;
         this.isAttacking;
+        this.health = 100;
     }
 
     draw() {
@@ -69,22 +70,24 @@ class Sprite {
 
         if (rectangularCollision({
             rectangle1: playerOne,
-            rectangle2: playerOne
+            rectangle2: playerTwo
         }) &&
             playerOne.isAttacking
         ) {
             playerOne.isAttacking = false;
-            console.log('HIT!');
+            playerTwo.health -= 20;
+            document.querySelector('#playerTwoHealth').style.width = playerTwo.health + '%';
         }
 
         if (rectangularCollision({
-            rectangle1: playerOne,
-            rectangle2: playerTwo
+            rectangle1: playerTwo,
+            rectangle2: playerOne
         }) &&
             playerTwo.isAttacking
         ) {
             playerTwo.isAttacking = false;
-            console.log('Enemy HIT!');
+            playerOne.health -= 20;
+            document.querySelector('#playerOneHealth').style.width = playerOne.health + '%';
         }
     }
 
@@ -231,7 +234,7 @@ window.addEventListener('keydown', (event) => {
             break;
         //numbpad 0 for Attack
         case '0':
-            playerTwo.isAttacking = true;
+            playerTwo.attack();
             break;
     }
 
